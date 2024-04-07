@@ -59,7 +59,7 @@
 ### 有中心全局限流
 ![img.png](has_center.png)
 
-<center>图2:有中心分布式限流算法</center>
+<div align="center">图2:有中心分布式限流算法</div>
 此种思路整体上和【无中心分布式限流算法】一致，只是增加了中心节点进行管理分布式限流。
 我们假设通过Etcd实现分布式限流。
 
@@ -117,7 +117,7 @@ return
 ## 2、跨业务处理过程
 
 ![img.png](cross_bus.png)
-<center>图3:跨业务处理流程</center><br/>
+<div align="center">图3:跨业务处理流程</div><br/>
 
 为了处理跨业务的全局限流，我们抽象出【共享应用限流配置】【独立应用限流配置】，对于目前业务的使用都是为【独立应用限流配置】。
 
@@ -130,7 +130,7 @@ return
 ## 3、Token分配
 ![img.png](token_dispatch.png)
 
-<center>图4:Token分配</center><br/>
+<div align="center">图4:Token分配</div><br/>
 
 对于一个全局资源，Token Server会均摊Seamiter Server的全局配置。
 
