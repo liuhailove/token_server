@@ -1,5 +1,3 @@
-
-方案
 ## 1、整体思路
 ![img.png](no_center.png)
 <center>图1：无中心全局限流</center>
@@ -8,23 +6,23 @@
 
 以下是按照这个流程进行讲解的。
 
-###全局流程
-####1.1 流量打标
+### 全局流程
+#### 1.1 流量打标
 （1）首先业务按照重要性对接口进行等级划分，如L0、L1、L2级别接口，其重要性L0>L1>L2
 
 （2）业务在入口处，如gateway对流量进行打标，对于L0级别接口需要打两个标：L0,L10；对于L1级别接口只需要打一个标L10
 
-####1.2 限流规则配置
+#### 1.2 限流规则配置
 （1）在seamiter热点限流中配置资源级别接口
 
 （2）配置对应的热点标签，如metadata中的flag=L0的阈值，flag=L10时的阈值
 
 （3）配置关联限流，在metadata的flag不为L0,L10使关联到标签为L0的限流阈值。此处要表达的意思是当标签不为L10时，只要L10的Qps达到阈值就限制标签非L10的流量。
 
-####1.3 Token Server分配限流
+#### 1.3 Token Server分配限流
 （1）TokenServer启动后，均摊针对全局限流的阈值，并把阈值维护在本地node中。同时自身维护一个滑动窗口，用于统计客户端申请的Token。
 
-####1.4 流量处理
+#### 1.4 流量处理
 （1）sdk拦截请求流量，并取出metadata中的标签
 
 （2）通过资源接口及标签获取对应的配置阈值
@@ -37,8 +35,8 @@
 
 （6）如果申请Token超时，退化为本地限流
 
-###全局限流
-####1.5 Client
+### 全局限流
+#### 1.5 Client
 （1）Client会在业务启动时从Dashboard获取到全部的Token Server地址及服务节点数
 
 （2）Client计算批量获取的Token数，暂定为max(【全局阈值/节点个数/2】,1)，并向上取整。对于小流量问题，向上取整会稍微放大阈值。
@@ -51,14 +49,14 @@
 
 （6）如果请求的其中一台返回没有Token，则继续调用下一个TokenServer，如果下一个也返回没有Token，则继续下一个；如果半数返回没有Token，则说明Token已经耗尽。
 
-####1.6 TokenServer
+#### 1.6 TokenServer
 （1）TokenServer启动时，向Seamiter-Server进行注册
 
 （2）Seamiter-Server把均摊后的Token下发给全部的Token Server节点
 
 （3）Token Server自身维护被请求的QPS，如10W，如果超过阈值，则通知Clien进行转移
 
-###有中心全局限流
+### 有中心全局限流
 ![img.png](has_center.png)
 
 <center>图2:有中心分布式限流算法</center>
@@ -114,7 +112,7 @@ return
 
 （3）对Etcd压力大：一次加/解锁需要对Etcd至少4次操作，即便通过分批操作，也会对Etcd Server造成比较大的压力。Etcd作为服务注册发现的核心组件，一旦出现性能问题，将会对整个业务造成影响。
 
-##2、跨业务处理过程
+## 2、跨业务处理过程
 
 ![img.png](cross_bus.png)
 <center>图3:跨业务处理流程</center><br/>
@@ -127,7 +125,7 @@ return
 
 【共享应用限流配置】中的每一个限流接口都需要标记作用范围，这样在seamiter-server计算批量拉取的Token数时，只有作用范围内的节点才会被作为真实需要Token的节点，避免无用节点预分配Token.
 
-##3、Token分配
+## 3、Token分配
 ![img.png](token_dispatch.png)
 
 <center>图4:Token分配</center><br/>
