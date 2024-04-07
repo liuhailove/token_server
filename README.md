@@ -1,3 +1,7 @@
+## TokenServer
+- 和Seamiter-Server保持心跳，用于Seamiter-Server进行全局限流均摊
+- 拉取【共享限流配置】，以便生成Token
+- 提供Token分配接口，以便Seamiter-SDK可以向Token Server申请Token信息
 ## 1、整体思路
 ![img.png](no_center.png)
 <div align="center">图1：无中心全局限流</div>
