@@ -1,6 +1,6 @@
 ## 1、整体思路
 ![img.png](no_center.png)
-<center>图1：无中心全局限流</center>
+<div align="center">图1：无中心全局限流</div>
 
 对于全局限流的整体流程包含：流量打标、限流规则配置、Token Server分配限流、具体流量处理；同时在全局限流时TokenServer自身怎么处理、TokenClient怎么和TokenServer交互；
 
