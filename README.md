@@ -1,6 +1,6 @@
 
 方案
-##1、整体思路
+## 1、整体思路
 ![img.png](no_center.png)
 <center>图1：无中心全局限流</center>
 
