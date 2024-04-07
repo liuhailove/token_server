@@ -64,7 +64,7 @@
 我们假设通过Etcd实现分布式限流。
 
 如果通过Etcd实现分布式限流，那么一般通过【Etcd锁+原子加减】来实现。
-
+```cgo
 // 尝试获取分布式锁
 err := mutex.Lock(context.Background())
 if err != nil {
@@ -90,6 +90,8 @@ if err != nil {
 log.Println(err)
 return
 }
+```
+
 同时需要增加一个定时器用于更新计数的有效期。
 
 总结下来区别如下：
