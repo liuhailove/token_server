@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.mvn
+mvnw
+mvnw.cmd
+token_server_transport.iml
