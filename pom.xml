@@ -39,6 +39,7 @@
         <token-server-transport.version>1.0-SNAPSHOT</token-server-transport.version>
         <token-server-web.version>1.0-SNAPSHOT</token-server-web.version>
         <mall-security.version>1.0-SNAPSHOT</mall-security.version>
+        <fastjson.version>1.2.75</fastjson.version>
     </properties>
 
     <dependencies>
@@ -126,6 +127,11 @@
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
